@@ -1,8 +1,9 @@
 package com.hl.officetools.task;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.hl.officetools.task.impl.RunnableTask;
 import com.hl.officetools.task.impl.TaskManagerImpl;
@@ -15,7 +16,10 @@ public class TestTaskManagerImpl {
 	public void testExecute() {
 		TaskManager tasks = new TaskManagerImpl();
 		tasks.add(task);
+		tasks.add(task);
+		tasks.add(task);
 		
+		assertDoesNotThrow(() -> tasks.execute());
 	}
 
 	@Test
@@ -33,7 +37,8 @@ public class TestTaskManagerImpl {
 	public void testClean() {
 		TaskManager tasks = new TaskManagerImpl();
 		tasks.add(task);
+		tasks.clean();
 		
-		
+		assertEquals(tasks.length(), 0);
 	}
 }

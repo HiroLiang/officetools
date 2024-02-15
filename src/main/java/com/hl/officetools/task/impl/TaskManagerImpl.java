@@ -3,8 +3,6 @@ package com.hl.officetools.task.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import com.hl.officetools.task.TaskManager;
 
@@ -19,7 +17,7 @@ public class TaskManagerImpl implements TaskManager {
 		before();
 		
 		if (withExecutor) {
-			
+			 
 		} else {
 			for (RunnableTask task : tasks) {
 				task.doTask();
@@ -43,7 +41,7 @@ public class TaskManagerImpl implements TaskManager {
 	public int length() {
 		return tasks.size();
 	}
-	
+
 	public void withExecutor() {
 		withExecutor = true;
 	}
