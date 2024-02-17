@@ -11,5 +11,7 @@ public interface TaskManager {
 	void clean();
 	
 	int length();
+
+	TaskManager withExecutor();
 	
 }

@@ -17,7 +17,11 @@ public class TaskManagerImpl implements TaskManager {
 		before();
 		
 		if (withExecutor) {
-			 
+			for (RunnableTask task : tasks) {
+				CompletableFuture.runAsync(() -> {
+					task.run();
+				});
+			}
 		} else {
 			for (RunnableTask task : tasks) {
 				task.doTask();
@@ -42,8 +46,10 @@ public class TaskManagerImpl implements TaskManager {
 		return tasks.size();
 	}
 
-	public void withExecutor() {
+	@Override
+	public TaskManager withExecutor() {
 		withExecutor = true;
+		return this;
 	}
 
 	// -----------------------------------------------------------------------

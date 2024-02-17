@@ -19,7 +19,7 @@ public class TestTaskManagerImpl {
 		tasks.add(task);
 		tasks.add(task);
 		
-		assertDoesNotThrow(() -> tasks.execute());
+		assertDoesNotThrow(() -> tasks.withExecutor().execute());
 	}
 
 	@Test
@@ -27,7 +27,7 @@ public class TestTaskManagerImpl {
 		TaskManager tasks = new TaskManagerImpl();
 
 		int i = tasks.length();
-
+		
 		tasks.add(task);
 
 		assertEquals(tasks.length(), i + 1);
