@@ -7,6 +7,9 @@ import java.util.concurrent.CompletableFuture;
 import com.hl.officetools.task.TaskManager;
 
 public class TaskManagerImpl implements TaskManager {
+	/*
+	 * 
+	 */
 
 	private final List<RunnableTask> tasks = new ArrayList<RunnableTask>();
 
