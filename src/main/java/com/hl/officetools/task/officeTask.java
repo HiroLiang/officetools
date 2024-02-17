@@ -1,6 +1,6 @@
 package com.hl.officetools.task;
 
-public interface RunnableTask {
+public interface officeTask {
 	
 	void initial();
 	void doTask();
