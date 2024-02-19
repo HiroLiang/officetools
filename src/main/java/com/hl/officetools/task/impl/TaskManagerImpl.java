@@ -7,21 +7,29 @@ import java.util.concurrent.CompletableFuture;
 import com.hl.officetools.task.TaskManager;
 
 public class TaskManagerImpl implements TaskManager {
+	/*
+	 * to follow sequence - don't use executor.
+	 * executor will 
+	 */
 
 	private final List<RunnableTask> tasks = new ArrayList<RunnableTask>();
 
 	private boolean withExecutor = false;
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void execute() {
 		before();
 		
 		if (withExecutor) {
-			for (RunnableTask task : tasks) {
-				CompletableFuture.runAsync(() -> {
+			CompletableFuture<Void>[] futures = new CompletableFuture[tasks.size()];
+			for (int i = 0; i < tasks.size(); i++) {
+				RunnableTask task = tasks.get(i);
+				futures[i] =  CompletableFuture.runAsync(() -> {
 					task.run();
 				});
 			}
+			CompletableFuture.allOf(futures).join();
 		} else {
 			for (RunnableTask task : tasks) {
 				task.doTask();
@@ -55,7 +63,7 @@ public class TaskManagerImpl implements TaskManager {
 	// -----------------------------------------------------------------------
 
 	private void before() {
-		// override when needed
+		// add process before task
 	}
 
 	private void after() {
