@@ -13,6 +13,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.hl.officetools.task.impl.RunnableTask;
+import com.hl.officetools.util.ExcelUtil;
 
 public class ExcelFillTableTask extends RunnableTask {
 	
@@ -118,7 +119,7 @@ public class ExcelFillTableTask extends RunnableTask {
 			String[] rowDatas = table.get(i);
 			XSSFRow row = sheet.getRow(coordinate[1] + i);
 			if (i > 0) {
-				row = addRow(coordinate[1] + i);
+				row = ExcelUtil.addRow(this.sheet, coordinate[1] + i);
 			}
 
 			for (int j = 0; j < rowDatas.length; j++) {
@@ -126,18 +127,5 @@ public class ExcelFillTableTask extends RunnableTask {
 				cell.setCellValue(rowDatas[j]);
 			}
 		}
-	}
-	
-	private XSSFRow addRow(int start) {
-		XSSFRow row = sheet.getRow(start);
-		short cellNum = row.getLastCellNum();
-		sheet.shiftRows(start, sheet.getLastRowNum(), 1);
-		XSSFRow newRow = sheet.getRow(start) == null ? sheet.createRow(start) : sheet.getRow(start);
-		for (int i = 0; i < cellNum; i++) {
-			XSSFCell cell = row.getCell(i);
-			XSSFCell newCell = newRow.getCell(i) == null ? newRow.createCell(i) : newRow.getCell(i);
-			newCell.setCellStyle(cell.getCellStyle());
-		}
-		return newRow;
 	}
 }

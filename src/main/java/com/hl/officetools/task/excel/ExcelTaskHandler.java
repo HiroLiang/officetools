@@ -11,11 +11,11 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ExcelTaskHandler {
 	
+	public String outputPath = "/" + UUID.randomUUID() + ".xlsx";
+	
 	private final XSSFWorkbook workbook;
 	
 	private File file;
-	
-	private String outputPath = "/" + UUID.randomUUID() + ".xlsx";
 	
 	private String tagName = "tag";
 	
@@ -23,13 +23,24 @@ public class ExcelTaskHandler {
 		super();
 		FileInputStream fis = new FileInputStream(templatePath);
 		this.workbook = new XSSFWorkbook(fis);
-		this.outputPath = outputPath + UUID.randomUUID() + ".xlsx";
+		this.outputPath = outputPath;
 	}
 	
 	public ExcelTaskHandler(XSSFWorkbook workbook, String outputPath) {
 		super();
 		this.workbook = workbook;
-		this.outputPath = outputPath + UUID.randomUUID() + ".xlsx";
+		this.outputPath = outputPath;
+	}
+	
+	public ExcelTaskHandler(String templatePath) throws IOException {
+		super();
+		FileInputStream fis = new FileInputStream(templatePath);
+		this.workbook = new XSSFWorkbook(fis);
+	}
+	
+	public ExcelTaskHandler(XSSFWorkbook workbook) {
+		super();
+		this.workbook = workbook;
 	}
 
 	public String getTagName() {
